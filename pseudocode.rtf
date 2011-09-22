@@ -1,0 +1,61 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf320
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww9000\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\ql\qnatural\pardirnatural
+
+\f0\fs24 \cf0 Launch experiment (args: word_list.txt subject test_letter)\
+\
+Instructions: "A series of words will be presented sequentially on screen. Try to remember as many words as you can. You will be tested on your knowledge upon completion of the study section"\
+\
+Randomize words in word_list.txt and remember the index of the words as well as the category ('a' or 'b') and word-type (target, foil) (in a dict element? array? matrix?) --> store in studylist\
+---- word_list.txt contains two lists of 150 words each, 75 targets and 75 foils for each list\
+---- First, tag the first 150 words with a category label 'a' and tag second list of 150 words as category label 'b'\
+---- Then, tag half of each category as 't' (target) and half as 'f' (foil)\
+---- Any words tagged as a target should be placed in the study list (randomly) and the test list while targets tagged as a foil should be placed in the test list only\
+---- Words stored in the test list should be blocked by category, but the words within each category can be random\
+\
+Display words from studylist after randomization\
+    S = a word, 1000ms\
+    ISI = blank screen, 150ms\
+\
+Break;\
+\
+Instructions (Test): "For each screen, press "s" if you think the word on the LEFT appeared during the study phase or press "k" if you think the word on the RIGHT appeared during the study phase. You have no time limit on each screen, but speed is encouraged. If you are unsure, take your best guess."\
+\
+Display words from test list after randomization\
+   S = two words, spaced by 20 characters\
+   ISI = blank screen 100ms\
+   --- One word is a 't' and the other word is a 'f' within the same category ('a' or 'b')\
+   --- Correct if selection (s or k) appeared on the study list (marked as a 't')\
+   --- Incorrect if selection (s or k) appeared on test list only (marked as a 'f')\
+   --- Record correctness as a binary value and print the following to a table:\
+\
+    Subject   |    Trial    |   Category   |  Response |   loc  |  Correct?   |  RT  |  delay\
+    ===========================================================    \
+    \
+    --- Subject = the test subject\
+    --- Trial = the test trial screen presented\
+    --- Category = The category of the two words ('a' or 'b')\
+    --- Response = The actual word they chose \
+    --- Location = either 's' or 'k' (bonus if you can translate to LEFT or RIGHT)\
+    --- Correct? = If they chose a 't', then it is a 1\'85else it is a 0\
+    --- RT = Amount of time from start of screen presentation to a response (RT = end \
+         time - start time in ms)\
+\
+delay = based on where the 't' appeared on the study list, what is the difference in trial number to where it appeared on the test list? For example, if "jester" appeared on trial 3 (screen 3) on the study list and it appears on trial 5 during the test phase, then the delay is -2. If the word "marco" appeared on trial 5 during study and it appears on trial 2 during test, then the delay is 3. \
+\
+A resulting table should be printed out for each subject, where the filename is "<subject>_<test_letter>.txt" and placed in the working directory\'85 example\
+\
+    Subject   |    Trial    |   Category   |  Response |   loc  |  Correct?   |  RT  |  delay\
+    ===========================================================    \
+          32              1                  a              billboard        's'            0             400       -3\
+          32              2                  a              Facebook      'k'            1             300       3\
+          32              3                  a              banana          'k'            0             500       5\
+          32              4                  a              Myspace        's'            1             600       9\
+        \'85.\
+          32             76                 b               Marco           's'            1             942       13\
+          32             77                 b               Julian             k            0              888      23\
+          32             78                 b                 Jill                 s            0             223       9\
+\
+}
